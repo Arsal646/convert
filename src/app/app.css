@@ -1,0 +1,72 @@
+/* SEO-friendly styles with black, gray, white color scheme */
+
+/* Smooth scrolling for better UX */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure proper text contrast for accessibility and SEO */
+.text-contrast {
+  color: #1f2937;
+}
+
+/* Hover effects for better engagement */
+.hover-lift:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Focus states for accessibility */
+button:focus,
+a:focus {
+  outline: 2px solid #374151;
+  outline-offset: 2px;
+}
+
+/* Gradient text for visual appeal */
+.gradient-text {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom shadow for cards */
+.card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  .responsive-text {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+/* Loading animation for better perceived performance */
+.loading-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+/* Ensure images are optimized for SEO */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Print styles for better accessibility */
+@media print {
+  .no-print {
+    display: none;
+  }
+}
