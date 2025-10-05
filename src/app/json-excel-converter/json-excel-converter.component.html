@@ -1,0 +1,465 @@
+<div class="max-w-6xl mx-auto px-4 py-8">
+  <!-- Header -->
+  <div class="text-center mb-6">
+    <h1 class="text-4xl font-bold mb-3 text-black">JSON to Excel | Excel to Json Converter</h1>
+    <p class="text-gray-600">Convert between JSON and Excel formats instantly</p>
+  </div>
+  
+  <!-- Conversion Mode Toggle -->
+  <div class="flex justify-center mb-4">
+    <div class="bg-gray-100 p-1 rounded-lg inline-flex">
+      <button (click)="switchMode('jsonToExcel')"
+        [class]="currentMode() === 'jsonToExcel' ? 'px-6 py-2 rounded-md font-medium transition-all bg-black text-white' : 'px-6 py-2 rounded-md font-medium transition-all text-gray-700 hover:text-black'">
+        JSON to Excel
+      </button>
+      <button (click)="switchMode('excelToJson')"
+        [class]="currentMode() === 'excelToJson' ? 'px-6 py-2 rounded-md font-medium transition-all bg-black text-white' : 'px-6 py-2 rounded-md font-medium transition-all text-gray-700 hover:text-black'">
+        Excel to JSON
+      </button>
+    </div>
+  </div>
+
+
+
+  <!-- JSON to Excel Mode -->
+  @if (currentMode() === 'jsonToExcel') {
+
+  <!-- Input Screen -->
+  @if (!showPreview()) {
+  <div class="space-y-6">
+    <div class="bg-gray-50 border-2 border-gray-200 rounded-lg p-6">
+      <div class="flex items-start justify-between mb-3">
+        <div>
+          <label class="block text-sm font-semibold text-black">Input JSON</label>
+          <p class="text-xs text-gray-500 mt-0.5">Try the sample data to see how it works</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button (click)="loadSampleData()"
+            class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700">
+            Sample
+          </button>
+        </div>
+      </div>
+      <app-monaco-editor [value]="jsonInput()" (valueChange)="onJsonEditorChange($event)" language="json"
+        [placeholder]="placeholderJson" height="22rem"></app-monaco-editor>
+
+      <!-- Action Buttons -->
+      <div class="mt-4 flex flex-wrap gap-3">
+        <button (click)="previewExcel()" [disabled]="isProcessing()"
+          class="btn-primary bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed">
+          Convert to Excel
+        </button>
+        <button (click)="clearJson()"
+          class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-300">
+          Clear
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Preview Screen -->
+  @if (showPreview()) {
+  <div class="space-y-6">
+    <!-- Header Section -->
+    <div class="bg-white border border-gray-200 rounded-lg p-6 relative overflow-hidden">
+      <!-- Success Message -->
+      <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="flex-shrink-0">
+            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-green-800">🎉 Success! Your JSON has been converted to Excel</h3>
+            <p class="text-xs text-green-700 mt-1">{{ previewTableRows.length }} rows • {{ previewTableHeaders.length }} columns ready for download</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back Button and Actions -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <!-- Left: Back Button -->
+        <button (click)="backToInput()"
+          class="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-black transition-colors text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back to Input
+        </button>
+
+        <!-- Right: Download Actions -->
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <button (click)="downloadExcel()"
+            class="bg-green-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-green-700 flex items-center justify-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+              </path>
+            </svg>
+            Download Excel
+          </button>
+          <button (click)="downloadCsv()"
+            class="bg-gray-200 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-300 flex items-center justify-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16v4H4zm0 6h16v10H4z">
+              </path>
+            </svg>
+            Download CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- Firework Animation -->
+      @if (showFireworks()) {
+      <div class="fireworks-container">
+        <div class="firework firework-1"></div>
+        <div class="firework firework-2"></div>
+        <div class="firework firework-3"></div>
+      </div>
+      }
+    </div>
+
+    <!-- Preview Table -->
+    <div class="bg-white border-2 border-gray-200 rounded-lg overflow-hidden">
+      <div class="overflow-x-auto max-h-96">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-100 border-b-2 border-gray-200 sticky top-0">
+            <tr>
+              @for (header of previewTableHeaders; track header) {
+              <th class="px-4 py-3 text-left font-semibold text-gray-700 border-r border-gray-200 last:border-r-0">
+                {{ header }}
+              </th>
+              }
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            @for (row of previewTableRows; track $index) {
+            <tr class="hover:bg-gray-50">
+              @for (header of previewTableHeaders; track header) {
+              <td class="px-4 py-3 border-r border-gray-200 last:border-r-0">
+                {{ row[header] }}
+              </td>
+              }
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+  }
+  }
+
+  <!-- Excel to JSON Mode -->
+  @if (currentMode() === 'excelToJson') {
+
+  <!-- Upload Screen -->
+  @if (!showJsonOutput()) {
+  <div class="space-y-6">
+    <div class="bg-gray-50 border-2 border-gray-200 rounded-lg p-6">
+      <label class="block text-sm font-semibold mb-3 text-black">Upload Excel File</label>
+
+      @if (!fileUploaded()) {
+      <!-- Upload Zone -->
+      <div (click)="onFileInputClick()" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+        [class]="'upload-zone border-3 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all ' + 
+                       (isDragOver() ? 'border-black bg-gray-100' : 'border-gray-300 hover:border-gray-500 hover:bg-gray-50')">
+        <svg class="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+        </svg>
+        <p class="text-gray-600 font-medium mb-2">Drop your Excel file here or click to browse</p>
+        <p class="text-sm text-gray-500">Supports .xlsx, .xls files</p>
+        <input #fileInput type="file" accept=".xlsx,.xls" (change)="onFileSelected($event)" class="hidden">
+      </div>
+      } @else {
+      <!-- File Uploaded - Ready to Convert -->
+      <div class="bg-white border-2 border-green-200 rounded-lg p-8 text-center">
+        <svg class="mx-auto h-16 w-16 text-green-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3 class="text-lg font-semibold text-black mb-2">File Ready for Conversion</h3>
+        <p class="text-gray-600 mb-1">{{ fileName() }}</p>
+        <p class="text-sm text-gray-500 mb-6">Excel file uploaded successfully</p>
+
+        <!-- Convert Button -->
+        <div class="flex justify-center gap-3">
+          <button (click)="convertToJson()" [disabled]="isProcessing()"
+            class="btn-primary bg-black text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+            </svg>
+            Convert to JSON
+          </button>
+          <button (click)="backToUpload()"
+            class="bg-gray-200 text-gray-700 px-6 py-4 rounded-lg font-medium hover:bg-gray-300">
+            Choose Different File
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  }
+
+  <!-- JSON Output Screen -->
+  @if (showJsonOutput()) {
+  <div class="space-y-6">
+    <!-- Header Section -->
+    <div class="bg-white border border-gray-200 rounded-lg p-6 relative overflow-hidden">
+      <!-- Success Message -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="flex-shrink-0">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-blue-800">🎉 Success! Your Excel has been converted to JSON</h3>
+            <p class="text-xs text-blue-700 mt-1">{{ fileName() }} • {{ excelData?.length || 0 }} records converted</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back Button and Actions -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <!-- Left: Back Button -->
+        <button (click)="backToUpload()"
+          class="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-black transition-colors text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back to Upload
+        </button>
+
+        <!-- Right: Download Actions -->
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <button (click)="downloadJson()" [disabled]="!canDownloadJson"
+            class="bg-black text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+              </path>
+            </svg>
+            Download JSON
+          </button>
+          <button (click)="copyToClipboard()" [disabled]="!canCopyJson"
+            class="bg-gray-200 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+              </path>
+            </svg>
+            Copy
+          </button>
+          <button (click)="backToUpload()"
+            class="bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 flex items-center justify-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+            </svg>
+            New
+          </button>
+        </div>
+      </div>
+
+      <!-- Firework Animation -->
+      @if (showFireworks()) {
+      <div class="fireworks-container">
+        <div class="firework firework-1"></div>
+        <div class="firework firework-2"></div>
+        <div class="firework firework-3"></div>
+      </div>
+      }
+    </div>
+
+    <!-- JSON Display -->
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+      <app-monaco-editor [value]="jsonOutput()" language="json" [readOnly]="true" height="24rem"></app-monaco-editor>
+    </div>
+  </div>
+  }
+  }
+
+  <!-- Loading Popup Modal -->
+  @if (isProcessing()) {
+  <div class="loading-overlay">
+    <div class="loading-popup">
+      <!-- Loading Icon -->
+      <div class="loading-icon-container">
+        <div class="loading-spinner"></div>
+      </div>
+
+      <!-- Loading Content -->
+      <div class="loading-content">
+        <h3 class="loading-title">Processing</h3>
+        <p class="loading-message">{{ progressMessage() }}</p>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="progressPercent()">
+            </div>
+          </div>
+          <span class="progress-text">{{ progressPercent() | number:'1.0-0' }}%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Toast Notifications -->
+  <div class="toast-container">
+    @for (toast of toasts(); track toast.id) {
+    <div
+      [class]="'toast ' + (toast.type === 'success' ? 'toast-success' : 'toast-error') + ' ' + (toast.isVisible ? 'toast-visible' : 'toast-hidden')"
+      (click)="hideToast(toast.id)">
+      <div class="toast-content">
+        <!-- Icon -->
+        <div class="toast-icon">
+          @if (toast.type === 'success') {
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          } @else {
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+          }
+        </div>
+
+        <!-- Message -->
+        <span class="toast-message">{{ toast.message }}</span>
+
+        <!-- Close Button -->
+        <button class="toast-close" (click)="hideToast(toast.id)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Step-by-Step Guide -->
+<section class="guide-band mt-16">
+  <div class="guide-panel mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 text-gray-900">
+    <div class="flex flex-col gap-8">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-black">Step-by-step guide</h2>
+          <p class="text-sm text-gray-600">Use this quick reference to move between JSON and Excel with confidence.</p>
+        </div>
+        <div class="guide-tabs">
+          <button type="button" class="guide-tab" [class.guide-tab-active]="guideTab() === 'jsonToExcel'" (click)="setGuideTab('jsonToExcel')">
+            Convert JSON to Excel
+          </button>
+          <button type="button" class="guide-tab" [class.guide-tab-active]="guideTab() === 'excelToJson'" (click)="setGuideTab('excelToJson')">
+            Convert Excel to JSON
+          </button>
+        </div>
+      </div>
+
+      @if (guideTab() === 'jsonToExcel') {
+      <div class="space-y-6">
+        <div class="rounded-3xl border border-gray-200 bg-gray-50 p-8 shadow-sm">
+          <h3 class="text-xl font-semibold text-black">Convert JSON to Excel</h3>
+          <ol class="mt-4 space-y-3 text-sm text-gray-700">
+            <li class="flex gap-3">
+              <span class="guide-step">1</span>
+              <span>Switch to <span class="font-semibold">JSON to Excel</span> mode, then paste or load your JSON array into the editor.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="guide-step">2</span>
+              <span>Confirm each object shares the same keys and formatting. The live editor highlights syntax issues instantly.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="guide-step">3</span>
+              <span>Press <span class="font-semibold">Convert to Excel</span> to generate the preview table and sanity-check the layout.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="guide-step">4</span>
+              <span>Download your spreadsheet as <span class="font-semibold">Excel</span> or <span class="font-semibold">CSV</span>, or go back to adjust the source.</span>
+            </li>
+          </ol>
+        </div>
+        <div class="grid gap-6 md:grid-cols-2">
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 text-gray-900 shadow-sm">
+            <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Works well</h4>
+            <p class="mt-2 text-sm text-gray-700">Flat, consistently keyed objects convert into clean columns:</p>
+            <pre class="guide-pre guide-pre-inverse mt-3 mt-3" ngNonBindable>[&#10;  &#123;&quot;name&quot;: &quot;Avery&quot;, &quot;role&quot;: &quot;Designer&quot;, &quot;active&quot;: true&#125;,&#10;  &#123;&quot;name&quot;: &quot;Luca&quot;, &quot;role&quot;: &quot;Engineer&quot;, &quot;active&quot;: false&#125;&#10;]</pre>
+            <p class="mt-3 text-xs text-gray-500">Each property becomes a column, so every row lines up perfectly.</p>
+          </div>
+          <div class="rounded-2xl border border-gray-100 bg-gray-100 p-6 text-gray-100 shadow-sm">
+            <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-600">Not recommended</h4>
+            <p class="mt-2 text-sm text-gray-500">Avoid nested structures or mixed shapes in the same array:</p>
+            <pre class="guide-pre guide-pre-inverse mt-3" ngNonBindable>[&#10;  &#123;&quot;name&quot;: &quot;Avery&quot;, &quot;metrics&quot;: &#123;&quot;q1&quot;: 12, &quot;q2&quot;: 18&#125;&#125;,&#10;  &#123;&quot;name&quot;: &quot;Luca&quot;, &quot;metrics&quot;: [12, 18], &quot;active&quot;: &quot;yes&quot;&#125;&#10;]</pre>
+            <p class="mt-3 text-xs text-gray-400">Nested objects and inconsistent types lead to unpredictable columns. Flatten the data first.</p>
+          </div>
+        </div>
+      </div>
+      } @else {
+      <div class="space-y-6">
+        <div class="rounded-3xl border border-gray-200 bg-gray-50 p-8 shadow-sm">
+          <h3 class="text-xl font-semibold text-black">Convert Excel to JSON</h3>
+          <ol class="mt-4 space-y-3 text-sm text-gray-700">
+            <li class="flex gap-3">
+              <span class="guide-step">1</span>
+              <span>Switch to <span class="font-semibold">Excel to JSON</span>, then drag in or browse for a <span class="font-semibold">.xlsx</span> or <span class="font-semibold">.xls</span> file.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="guide-step">2</span>
+              <span>Use the first worksheet with a single header row. Each column header becomes a JSON key.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="guide-step">3</span>
+              <span>Review the preview table to confirm blanks, dates, and numbers look correct.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="guide-step">4</span>
+              <span>Download the JSON file or copy it directly once you are happy with the structure.</span>
+            </li>
+          </ol>
+        </div>
+        <div class="grid gap-6 md:grid-cols-2">
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 text-gray-900 shadow-sm">
+            <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Works well</h4>
+            <p class="mt-2 text-sm text-gray-700">Keep your spreadsheet tidy before uploading:</p>
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-700">
+              <li>Row 1 uses simple headers such as <span class="font-semibold">Name</span>, <span class="font-semibold">Email</span>, <span class="font-semibold">Joined</span>.</li>
+              <li>Columns stay consistent - text with text, numbers with numbers.</li>
+              <li>No merged cells, filters, or hidden helper columns.</li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-gray-300 bg-gray-100 p-6 text-gray-800 shadow-sm">
+            <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-600">Not recommended</h4>
+            <p class="mt-2 text-sm text-gray-700">These patterns create confusing JSON output:</p>
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-700">
+              <li>Multiple header rows or blank header cells.</li>
+              <li>Merged cells or notes mixed in with data rows.</li>
+              <li>Columns that swap between text, numbers, and dates in the same column.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+
+
+
+</div>
+
+
+
+

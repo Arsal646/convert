@@ -1,0 +1,35 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.monaco-wrapper {
+  position: relative;
+  border: 2px solid #d1d5db;
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.monaco-wrapper--focused {
+  border-color: #111827;
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.12);
+}
+
+.monaco-editor-container {
+  width: 100%;
+}
+
+.monaco-placeholder {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  right: 16px;
+  font-family: 'JetBrains Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 13px;
+  color: #9ca3af;
+  pointer-events: none;
+  white-space: pre-line;
+  line-height: 1.4;
+}
