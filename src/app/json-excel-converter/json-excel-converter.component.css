@@ -377,41 +377,8 @@ textarea::-webkit-scrollbar-thumb:hover {
 }
 
 /* Responsive adjustments for loading popup */
-@media (max-width: 640px) {
-  .loading-popup {
-    padding: 32px 24px;
-    margin: 16px;
-  }
-  
-  .loading-spinner {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .loading-title {
-    font-size: 20px;
-  }
-  
-  .loading-message {
-    font-size: 14px;
-  }
 
-  /* Toast responsive adjustments */
-  .toast-container {
-    top: 16px;
-    right: 16px;
-    left: 16px;
-    max-width: none;
-  }
-  
-  .toast {
-    padding: 12px;
-  }
-  
-  .toast-message {
-    font-size: 13px;
-  }
-}
+
 /* Step-by-step guide styling */
 .guide-band {
   width: 100%;
@@ -440,6 +407,11 @@ textarea::-webkit-scrollbar-thumb:hover {
   font-size: 0.875rem;
   color: #111827;
   flex-shrink: 0;
+}
+
+.guide-pre-wrapper {
+  overflow: hidden;
+  border-radius: 16px;
 }
 
 .guide-pre {
@@ -502,3 +474,52 @@ textarea::-webkit-scrollbar-thumb:hover {
 .guide-tab-active:hover {
   color: #f9fafb;
 }
+
+@media (max-width: 640px) {
+  .loading-popup {
+    padding: 32px 24px;
+    margin: 16px;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .loading-title {
+    font-size: 20px;
+  }
+
+  .loading-message {
+    font-size: 14px;
+  }
+
+  .toast-container {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    max-width: none;
+  }
+
+  .toast {
+    padding: 12px;
+  }
+
+  .toast-message {
+    font-size: 13px;
+  }
+
+  .guide-pre {
+    width: 100%;
+    font-size: 0.78rem;
+    padding: 0.875rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .guide-pre-wrapper {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+  }
+}
+

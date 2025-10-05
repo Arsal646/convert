@@ -396,13 +396,13 @@
           <div class="rounded-2xl border border-gray-200 bg-white p-6 text-gray-900 shadow-sm">
             <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Works well</h4>
             <p class="mt-2 text-sm text-gray-700">Flat, consistently keyed objects convert into clean columns:</p>
-            <pre class="guide-pre guide-pre-inverse mt-3 mt-3" ngNonBindable>[&#10;  &#123;&quot;name&quot;: &quot;Avery&quot;, &quot;role&quot;: &quot;Designer&quot;, &quot;active&quot;: true&#125;,&#10;  &#123;&quot;name&quot;: &quot;Luca&quot;, &quot;role&quot;: &quot;Engineer&quot;, &quot;active&quot;: false&#125;&#10;]</pre>
+            <div class="guide-pre-wrapper"><pre class="guide-pre mt-3" ngNonBindable>[&#10;  &#123;&quot;name&quot;: &quot;Avery&quot;, &quot;role&quot;: &quot;Designer&quot;, &quot;active&quot;: true&#125;,&#10;  &#123;&quot;name&quot;: &quot;Luca&quot;, &quot;role&quot;: &quot;Engineer&quot;, &quot;active&quot;: false&#125;&#10;]</pre></div>
             <p class="mt-3 text-xs text-gray-500">Each property becomes a column, so every row lines up perfectly.</p>
           </div>
-          <div class="rounded-2xl border border-gray-100 bg-gray-100 p-6 text-gray-100 shadow-sm">
+          <div class="rounded-2xl border border-gray-900 bg-gray-900 p-6 text-gray-100 shadow-sm">
             <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-600">Not recommended</h4>
-            <p class="mt-2 text-sm text-gray-500">Avoid nested structures or mixed shapes in the same array:</p>
-            <pre class="guide-pre guide-pre-inverse mt-3" ngNonBindable>[&#10;  &#123;&quot;name&quot;: &quot;Avery&quot;, &quot;metrics&quot;: &#123;&quot;q1&quot;: 12, &quot;q2&quot;: 18&#125;&#125;,&#10;  &#123;&quot;name&quot;: &quot;Luca&quot;, &quot;metrics&quot;: [12, 18], &quot;active&quot;: &quot;yes&quot;&#125;&#10;]</pre>
+            <p class="mt-2 text-sm text-gray-200">Avoid nested structures or mixed shapes in the same array:</p>
+            <div class="guide-pre-wrapper"><pre class="guide-pre guide-pre-inverse mt-3" ngNonBindable>[&#10;  &#123;&quot;name&quot;: &quot;Avery&quot;, &quot;metrics&quot;: &#123;&quot;q1&quot;: 12, &quot;q2&quot;: 18&#125;&#125;,&#10;  &#123;&quot;name&quot;: &quot;Luca&quot;, &quot;metrics&quot;: [12, 18], &quot;active&quot;: &quot;yes&quot;&#125;&#10;]</pre></div>
             <p class="mt-3 text-xs text-gray-400">Nested objects and inconsistent types lead to unpredictable columns. Flatten the data first.</p>
           </div>
         </div>
@@ -459,6 +459,9 @@
 
 
 </div>
+
+
+
 
 
 
