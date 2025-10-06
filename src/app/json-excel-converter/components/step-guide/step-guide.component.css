@@ -1,0 +1,74 @@
+
+:host{
+         .guide-step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: black;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .code-block {
+            background-color: #1e1e1e;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            border: 1px solid #333;
+            color: #d4d4d4;
+        }
+        
+        .json-key { color: #9cdcfe; }
+        .json-string { color: #ce9178; }
+        .json-number { color: #b5cea8; }
+        .json-boolean { color: #569cd6; }
+        .json-null { color: #569cd6; }
+        
+        .example-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+        
+        .example-table th, .example-table td {
+            border: 1px solid #d1d5db;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        
+        .example-table th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+        }
+        
+        .example-table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        
+        /* .good-example {
+            border-left: 4px solid #10b981;
+        }
+        
+        .bad-example {
+            border-left: 4px solid #ef4444;
+        } */
+        
+        .faq-item {
+            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+}

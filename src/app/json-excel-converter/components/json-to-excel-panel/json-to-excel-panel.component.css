@@ -1,0 +1,113 @@
+:host {
+  display: block;
+  font-size: 0.95rem;
+}
+
+:host table {
+  font-size: 0.875rem;
+}
+
+:host button {
+  font-size: 0.9rem;
+}
+
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:disabled,
+button[disabled] {
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.5);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.fireworks-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.firework {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, #f97316 0%, #facc15 55%, transparent 100%);
+  opacity: 0;
+}
+
+.firework-1 {
+  top: 22%;
+  left: 32%;
+  animation: fireworkBurst1 0.85s ease-out forwards;
+}
+
+.firework-2 {
+  top: 45%;
+  right: 28%;
+  animation: fireworkBurst2 0.95s ease-out forwards;
+}
+
+.firework-3 {
+  bottom: 20%;
+  left: 46%;
+  animation: fireworkBurst3 1.05s ease-out forwards;
+}
+
+@keyframes fireworkBurst1 {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(12);
+    opacity: 0;
+  }
+}
+
+@keyframes fireworkBurst2 {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(10);
+    opacity: 0;
+  }
+}
+
+@keyframes fireworkBurst3 {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(9);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,131 @@
+@if (isProcessing) {
+  <app-loading-overlay [progressMessage]="progressMessage" [progressPercent]="progressPercent"></app-loading-overlay>
+}
+
+<div class="space-y-6">
+
+  @if(!showPreview) {
+      <div class="bg-gray-50 border-2 border-gray-200 rounded-lg p-6">
+    <div class="flex items-start justify-between mb-3">
+      <div>
+        <label class="block text-sm font-semibold text-black">Input JSON</label>
+        <p class="text-xs text-gray-500 mt-0.5">Try the sample data to see how it works</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button (click)="openGuideModal()"
+          class="bg-gray-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Guide
+        </button>
+        <button (click)="loadSampleData()"
+          class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700">
+          Sample
+        </button>
+      </div>
+    </div>
+    <app-monaco-editor [value]="jsonInput"
+      (valueChange)="onJsonEditorChange($event)"
+      language="json"
+      [placeholder]="placeholderJson"
+      height="22rem"></app-monaco-editor>
+
+    <div class="mt-4 flex flex-wrap gap-3">
+      <button (click)="previewExcel()" [disabled]="isProcessing"
+        class="btn-primary bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed">
+        Convert to Excel
+      </button>
+      <button (click)="clearJson()"
+        class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-300">
+        Clear
+      </button>
+    </div>
+  </div>
+  }
+
+  @if (showPreview) {
+  <div class="space-y-6">
+    <div class="bg-white border border-gray-200 rounded-lg p-6 relative overflow-hidden">
+      <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="flex-shrink-0">
+            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-green-800"> Your JSON has been converted to Excel</h3>
+            <p class="text-xs text-green-700 mt-1">{{ previewTableRows.length }} rows &bull; {{ previewTableHeaders.length }} columns ready for download</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <button (click)="backToInput()"
+          class="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-black transition-colors text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back to Input
+        </button>
+
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <button (click)="downloadExcel()"
+            class="bg-green-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-green-700 flex items-center justify-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Download Excel
+          </button>
+          <button (click)="downloadCsv()"
+            class="bg-gray-200 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-300 flex items-center justify-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16v4H4zm0 6h16v10H4z"></path>
+            </svg>
+            Download CSV
+          </button>
+        </div>
+      </div>
+
+      @if (showFireworks) {
+      <div class="fireworks-container">
+        <div class="firework firework-1"></div>
+        <div class="firework firework-2"></div>
+        <div class="firework firework-3"></div>
+      </div>
+      }
+    </div>
+
+    <div class="bg-white border-2 border-gray-200 rounded-lg overflow-hidden">
+      <div class="overflow-x-auto max-h-96">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-100 border-b-2 border-gray-200 sticky top-0">
+            <tr>
+              @for (header of previewTableHeaders; track header) {
+              <th class="px-4 py-3 text-left font-semibold text-gray-700 border-r border-gray-200 last:border-r-0">
+                {{ header }}
+              </th>
+              }
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            @for (row of previewTableRows; let rowIndex = $index; track rowIndex) {
+            <tr class="hover:bg-gray-50">
+              @for (header of previewTableHeaders; track header) {
+              <td class="px-4 py-3 border-r border-gray-200 last:border-r-0">
+                {{ row[header] }}
+              </td>
+              }
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+
+<app-toast-container [toasts]="toasts" (dismiss)="dismissToast($event)"></app-toast-container>

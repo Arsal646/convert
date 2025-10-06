@@ -1,0 +1,885 @@
+<!-- step-guide.component.html -->
+<div class="bg-white text-gray-900">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Tab Navigation -->
+        <div class="flex justify-center mb-8">
+            <div class="bg-gray-100 p-1 rounded-lg">
+                <button 
+                    (click)="switchTab('jsonToExcel')"
+                    [class]="activeTab === 'jsonToExcel' ? 'bg-white text-black shadow-sm' : 'text-gray-600 hover:text-black'"
+                    class="px-6 py-2 rounded-md font-medium transition-all duration-200">
+                    JSON to Excel Guide
+                </button>
+                <button 
+                    (click)="switchTab('excelToJson')"
+                    [class]="activeTab === 'excelToJson' ? 'bg-white text-black shadow-sm' : 'text-gray-600 hover:text-black'"
+                    class="px-6 py-2 rounded-md font-medium transition-all duration-200">
+                    Excel to JSON Guide
+                </button>
+            </div>
+        </div>
+
+        <!-- Tool Overview Section -->
+        <section class="mb-12">
+            @if (activeTab === 'jsonToExcel') {
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                <h2 class="text-2xl font-bold text-black mb-4">About Our JSON to Excel Tool</h2>
+                <p class="text-gray-700 mb-4">
+                    Our tool provides a simple, fast, and reliable way to convert JSON data into Excel spreadsheets. No installation required - just paste your JSON and download your Excel file.
+                </p>
+                <div class="grid md:grid-cols-3 gap-6 mt-6">
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
+                        <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white font-bold">1</span>
+                        </div>
+                        <h3 class="font-semibold text-black mb-2">Paste JSON</h3>
+                        <p class="text-sm text-gray-600">Copy and paste your JSON data into the input area</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
+                        <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white font-bold">2</span>
+                        </div>
+                        <h3 class="font-semibold text-black mb-2">Convert</h3>
+                        <p class="text-sm text-gray-600">Click the convert button to process your data</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
+                        <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white font-bold">3</span>
+                        </div>
+                        <h3 class="font-semibold text-black mb-2">Download</h3>
+                        <p class="text-sm text-gray-600">Download your Excel file or copy the results</p>
+                    </div>
+                </div>
+            </div>
+            } @else {
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                <h2 class="text-2xl font-bold text-black mb-4">About Our Excel to JSON Tool</h2>
+                <p class="text-gray-700 mb-4">
+                    Convert your Excel spreadsheets into clean, structured JSON data. Upload your Excel file or paste CSV data and get properly formatted JSON output instantly.
+                </p>
+                <div class="grid md:grid-cols-3 gap-6 mt-6">
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
+                        <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white font-bold">1</span>
+                        </div>
+                        <h3 class="font-semibold text-black mb-2">Upload Excel</h3>
+                        <p class="text-sm text-gray-600">Upload your Excel file or paste CSV data</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
+                        <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white font-bold">2</span>
+                        </div>
+                        <h3 class="font-semibold text-black mb-2">Configure</h3>
+                        <p class="text-sm text-gray-600">Select sheet, headers, and output format options</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 text-center">
+                        <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white font-bold">3</span>
+                        </div>
+                        <h3 class="font-semibold text-black mb-2">Export JSON</h3>
+                        <p class="text-sm text-gray-600">Download JSON file or copy the formatted output</p>
+                    </div>
+                </div>
+            </div>
+            }
+        </section>
+
+        <!-- Step-by-Step Guide -->
+        <section class="mb-12">
+            @if (activeTab === 'jsonToExcel') {
+            <h2 class="text-3xl font-bold text-black mb-6">How to Convert JSON to Excel - Step by Step</h2>
+            } @else {
+            <h2 class="text-3xl font-bold text-black mb-6">How to Convert Excel to JSON - Step by Step</h2>
+            }
+            
+            @if (activeTab === 'jsonToExcel') {
+            <!-- JSON to Excel Steps -->
+            <!-- Step 1 -->
+            <div class="mb-8 bg-white rounded-2xl border border-gray-200 p-6">
+                <div class="flex items-start gap-4">
+                    <div class="guide-step">1</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-black mb-2">Access the Tool</h3>
+                        <p class="text-gray-700 mb-4">
+                            Navigate to our JSON to Excel converter tool on our website. The interface is clean and straightforward with clear input and output areas.
+                        </p>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <h4 class="font-medium text-black mb-2">What You'll See:</h4>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                                <li>A large text area for pasting your JSON data</li>
+                                <li>Conversion options (Excel format, CSV format)</li>
+                                <li>A preview area to check your data before downloading</li>
+                                <li>Clear "Convert" and "Download" buttons</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="mb-8 bg-white rounded-2xl border border-gray-200 p-6">
+                <div class="flex items-start gap-4">
+                    <div class="guide-step">2</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-black mb-2">Prepare Your JSON Data</h3>
+                        <p class="text-gray-700 mb-4">
+                            Format your JSON data correctly before pasting it into the tool. The tool works best with properly structured JSON arrays.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-1 gap-6 mb-4">
+                            <div class="good-example bg-white p-4 rounded-lg border border-gray-200">
+                                <h4 class="font-medium text-green-700 mb-2">✓ Good Example</h4>
+                                <div class="code-block">
+                                    <ng-container>
+                                        [<br>
+                                        &nbsp;&nbsp;&#123;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"id"</span>: <span class="json-number">1</span>,<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-string">"John Doe"</span>,<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"email"</span>: <span class="json-string">"john&#64;example.com"</span>,<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"active"</span>: <span class="json-boolean">true</span><br>
+                                        &nbsp;&nbsp;&#125;,<br>
+                                        &nbsp;&nbsp;&#123;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"id"</span>: <span class="json-number">2</span>,<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-string">"Jane Smith"</span>,<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"email"</span>: <span class="json-string">"jane&#64;example.com"</span>,<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"active"</span>: <span class="json-boolean">false</span><br>
+                                        &nbsp;&nbsp;&#125;<br>
+                                        ]
+                                    </ng-container>
+                                </div>
+                                <p class="text-xs text-gray-600 mt-2">Consistent structure with same keys in each object</p>
+                            </div>
+                            <div class="bad-example bg-white p-4 rounded-lg border border-gray-200">
+                                <h4 class="font-medium text-red-700 mb-2">✗ Problematic Example</h4>
+                                <div class="code-block">
+                                    <ng-container>
+                                        [<br>
+                                        &nbsp;&nbsp;&#123;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"user"</span>: <span class="json-string">"John"</span>,<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"details"</span>: &#123;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"age"</span>: <span class="json-number">30</span>,<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"city"</span>: <span class="json-string">"New York"</span><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&#125;<br>
+                                        &nbsp;&nbsp;&#125;,<br>
+                                        &nbsp;&nbsp;&#123;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-string">"Jane"</span>,<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"age"</span>: <span class="json-number">25</span><br>
+                                        &nbsp;&nbsp;&#125;<br>
+                                        ]
+                                    </ng-container>
+                                </div>
+                                <p class="text-xs text-gray-600 mt-2">Inconsistent keys and nested objects cause issues</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-black mb-2">JSON Preparation Tips:</h4>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                                <li>Ensure your JSON is valid (use a JSON validator if unsure)</li>
+                                <li>Use consistent property names across all objects</li>
+                                <li>Flatten nested objects before conversion</li>
+                                <li>Remove any unnecessary metadata or wrapper objects</li>
+                                <li>Use arrays of objects for the best results</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="mb-8 bg-white rounded-2xl border border-gray-200 p-6">
+                <div class="flex items-start gap-4">
+                    <div class="guide-step">3</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-black mb-2">Paste and Convert</h3>
+                        <p class="text-gray-700 mb-4">
+                            Copy your prepared JSON data and paste it into the tool's input area, then click the convert button.
+                        </p>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <h4 class="font-medium text-black mb-2">Conversion Options:</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded border border-gray-200">
+                                    <h5 class="font-medium text-black mb-1">Excel Format (.xlsx)</h5>
+                                    <p class="text-xs text-gray-600">Recommended for most uses - preserves formatting and allows multiple sheets</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border border-gray-200">
+                                    <h5 class="font-medium text-black mb-1">CSV Format (.csv)</h5>
+                                    <p class="text-xs text-gray-600">Lightweight option compatible with all spreadsheet applications</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                            <h4 class="font-medium text-yellow-800 mb-2">Important Notes:</h4>
+                            <ul class="list-disc pl-5 text-yellow-800 text-sm space-y-1">
+                                <li>The tool automatically detects your JSON structure and creates appropriate columns</li>
+                                <li>Large datasets may take a few seconds to process</li>
+                                <li>If conversion fails, check the console for error messages about JSON syntax</li>
+                                <li>You can use the preview feature to verify the output before downloading</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 4 -->
+            <div class="mb-8 bg-white rounded-2xl border border-gray-200 p-6">
+                <div class="flex items-start gap-4">
+                    <div class="guide-step">4</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-black mb-2">Review and Download</h3>
+                        <p class="text-gray-700 mb-4">
+                            After conversion, review the preview of your Excel data and download the file.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-4">
+                            <div>
+                                <h4 class="font-medium text-black mb-2">Preview Features:</h4>
+                                <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                                    <li>View how your JSON data appears in tabular format</li>
+                                    <li>Check that all columns are properly mapped</li>
+                                    <li>Verify data types are correctly interpreted</li>
+                                    <li>Identify any missing or malformed data</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-black mb-2">Download Options:</h4>
+                                <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                                    <li>Download as Excel (.xlsx) file</li>
+                                    <li>Download as CSV (.csv) file</li>
+                                    <li>Copy table data to clipboard</li>
+                                    <li>Start over with new JSON data</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <h4 class="font-medium text-green-800 mb-2">Pro Tips:</h4>
+                            <ul class="list-disc pl-5 text-green-800 text-sm space-y-1">
+                                <li>Use the preview to catch issues before downloading</li>
+                                <li>For large datasets, CSV format downloads faster</li>
+                                <li>Excel format preserves data types better (dates, numbers, etc.)</li>
+                                <li>Bookmark the tool for quick access to future conversions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            } @else {
+            <!-- Excel to JSON Steps -->
+            <!-- Step 1 -->
+            <div class="mb-8 bg-white rounded-2xl border border-gray-200 p-6">
+                <div class="flex items-start gap-4">
+                    <div class="guide-step">1</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-black mb-2">Prepare Your Excel File</h3>
+                        <p class="text-gray-700 mb-4">
+                            Ensure your Excel file is properly structured with clear headers and consistent data formatting for optimal JSON conversion.
+                        </p>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <h4 class="font-medium text-black mb-2">Excel File Requirements:</h4>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                                <li>First row should contain column headers</li>
+                                <li>Data should be in a continuous table format</li>
+                                <li>Avoid merged cells in the data area</li>
+                                <li>Use consistent data types in each column</li>
+                                <li>Remove empty rows between data</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                <h5 class="font-medium text-green-700 mb-2">✓ Good Structure</h5>
+                                <table class="example-table text-xs">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Active</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>John Doe</td>
+                                            <td>john@example.com</td>
+                                            <td>TRUE</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Jane Smith</td>
+                                            <td>jane@example.com</td>
+                                            <td>FALSE</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                <h5 class="font-medium text-red-700 mb-2">✗ Avoid This</h5>
+                                <div class="text-xs text-gray-600">
+                                    <p>• Missing headers</p>
+                                    <p>• Merged cells</p>
+                                    <p>• Empty rows in data</p>
+                                    <p>• Inconsistent formatting</p>
+                                    <p>• Multiple tables on one sheet</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="mb-8 bg-white rounded-2xl border border-gray-200 p-6">
+                <div class="flex items-start gap-4">
+                    <div class="guide-step">2</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-black mb-2">Upload Your File</h3>
+                        <p class="text-gray-700 mb-4">
+                            Upload your Excel file using the file picker or drag and drop it into the designated area. You can also paste CSV data directly.
+                        </p>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <h4 class="font-medium text-black mb-2">Supported Formats:</h4>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-white p-3 rounded border border-gray-200">
+                                    <h5 class="font-medium text-black mb-1">Excel Files</h5>
+                                    <p class="text-xs text-gray-600">.xlsx, .xls formats</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border border-gray-200">
+                                    <h5 class="font-medium text-black mb-1">CSV Files</h5>
+                                    <p class="text-xs text-gray-600">.csv format or paste data</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border border-gray-200">
+                                    <h5 class="font-medium text-black mb-1">TSV Files</h5>
+                                    <p class="text-xs text-gray-600">Tab-separated values</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <h4 class="font-medium text-blue-800 mb-2">Upload Tips:</h4>
+                            <ul class="list-disc pl-5 text-blue-800 text-sm space-y-1">
+                                <li>Maximum file size: 10MB for optimal performance</li>
+                                <li>For multi-sheet Excel files, you'll be able to select which sheet to convert</li>
+                                <li>CSV data can be pasted directly without file upload</li>
+                                <li>The tool automatically detects delimiters in CSV files</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="mb-8 bg-white rounded-2xl border border-gray-200 p-6">
+                <div class="flex items-start gap-4">
+                    <div class="guide-step">3</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-black mb-2">Configure Conversion Settings</h3>
+                        <p class="text-gray-700 mb-4">
+                            Select your preferred settings for the JSON output format and data handling options.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-4">
+                            <div>
+                                <h4 class="font-medium text-black mb-2">Sheet Selection:</h4>
+                                <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                                    <li>Choose which worksheet to convert (for Excel files)</li>
+                                    <li>Preview the selected sheet data</li>
+                                    <li>Verify headers are detected correctly</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-black mb-2">Output Options:</h4>
+                                <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                                    <li>Include/exclude empty cells</li>
+                                    <li>Convert numbers to appropriate JSON types</li>
+                                    <li>Handle date formatting</li>
+                                    <li>Set custom property names</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-black mb-2">JSON Format Options:</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded border border-gray-200">
+                                    <h5 class="font-medium text-black mb-1">Array of Objects</h5>
+                                    <p class="text-xs text-gray-600">Each row becomes a JSON object (recommended)</p>
+                                    <code class="text-xs bg-gray-100 p-1 rounded block mt-1">[&#123;"name": "John"&#125;, &#123;"name": "Jane"&#125;]</code>
+                                </div>
+                                <div class="bg-white p-4 rounded border border-gray-200">
+                                    <h5 class="font-medium text-black mb-1">Nested Structure</h5>
+                                    <p class="text-xs text-gray-600">Group data by specific columns</p>
+                                    <code class="text-xs bg-gray-100 p-1 rounded block mt-1">&#123;"users": [&#123;"name": "John"&#125;]&#125;</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 4 -->
+            <div class="mb-8 bg-white rounded-2xl border border-gray-200 p-6">
+                <div class="flex items-start gap-4">
+                    <div class="guide-step">4</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-black mb-2">Convert and Download</h3>
+                        <p class="text-gray-700 mb-4">
+                            Review the preview of your JSON output and download the converted file or copy the data to your clipboard.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-4">
+                            <div>
+                                <h4 class="font-medium text-black mb-2">Preview Features:</h4>
+                                <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                                    <li>View formatted JSON output</li>
+                                    <li>Check data type conversions</li>
+                                    <li>Verify all rows are included</li>
+                                    <li>Validate JSON structure</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-black mb-2">Export Options:</h4>
+                                <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                                    <li>Download as .json file</li>
+                                    <li>Copy formatted JSON to clipboard</li>
+                                    <li>Copy minified JSON (no formatting)</li>
+                                    <li>Save with custom filename</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <h4 class="font-medium text-green-800 mb-2">Quality Check Tips:</h4>
+                            <ul class="list-disc pl-5 text-green-800 text-sm space-y-1">
+                                <li>Verify that numbers aren't converted to strings unintentionally</li>
+                                <li>Check that boolean values (TRUE/FALSE) are properly converted</li>
+                                <li>Ensure date formats are preserved or converted as needed</li>
+                                <li>Validate the JSON structure using a JSON validator if needed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </section>
+
+        <!-- Examples Section -->
+        <section class="mb-12">
+            @if (activeTab === 'jsonToExcel') {
+            <h2 class="text-3xl font-bold text-black mb-6">JSON to Excel Examples</h2>
+            } @else {
+            <h2 class="text-3xl font-bold text-black mb-6">Excel to JSON Examples</h2>
+            }
+            
+            @if (activeTab === 'jsonToExcel') {
+            <div class="grid md:grid-cols-1 gap-8">
+                <div class="bg-white rounded-2xl border border-gray-200 p-6">
+                    <h3 class="text-xl font-semibold text-black mb-4">Simple User Data</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-medium text-black mb-2">Input JSON:</h4>
+                        <div class="code-block text-sm">
+                            <ng-container>
+                                [<br>
+                                &nbsp;&nbsp;&#123;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"id"</span>: <span class="json-number">101</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"firstName"</span>: <span class="json-string">"Alice"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"lastName"</span>: <span class="json-string">"Johnson"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"email"</span>: <span class="json-string">"alice&#64;example.com"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"department"</span>: <span class="json-string">"Engineering"</span><br>
+                                &nbsp;&nbsp;&#125;,<br>
+                                &nbsp;&nbsp;&#123;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"id"</span>: <span class="json-number">102</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"firstName"</span>: <span class="json-string">"Bob"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"lastName"</span>: <span class="json-string">"Smith"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"email"</span>: <span class="json-string">"bob&#64;example.com"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"department"</span>: <span class="json-string">"Marketing"</span><br>
+                                &nbsp;&nbsp;&#125;<br>
+                                ]
+                            </ng-container>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-black mb-2">Output Excel:</h4>
+                        <table class="example-table text-sm">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>firstName</th>
+                                    <th>lastName</th>
+                                    <th>email</th>
+                                    <th>department</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>101</td>
+                                    <td>Alice</td>
+                                    <td>Johnson</td>
+                                    <td>alice&#64;example.com</td>
+                                    <td>Engineering</td>
+                                </tr>
+                                <tr>
+                                    <td>102</td>
+                                    <td>Bob</td>
+                                    <td>Smith</td>
+                                    <td>bob&#64;example.com</td>
+                                    <td>Marketing</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl border border-gray-200 p-6">
+                    <h3 class="text-xl font-semibold text-black mb-4">Product Inventory</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-medium text-black mb-2">Input JSON:</h4>
+                        <div class="code-block text-sm">
+                            <ng-container>
+                                [<br>
+                                &nbsp;&nbsp;&#123;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"productId"</span>: <span class="json-string">"P-1001"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-string">"Wireless Mouse"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"category"</span>: <span class="json-string">"Electronics"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"price"</span>: <span class="json-number">29.99</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"inStock"</span>: <span class="json-boolean">true</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"lastRestock"</span>: <span class="json-string">"2023-10-15"</span><br>
+                                &nbsp;&nbsp;&#125;,<br>
+                                &nbsp;&nbsp;&#123;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"productId"</span>: <span class="json-string">"P-1002"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-string">"Mechanical Keyboard"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"category"</span>: <span class="json-string">"Electronics"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"price"</span>: <span class="json-number">89.99</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"inStock"</span>: <span class="json-boolean">false</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"lastRestock"</span>: <span class="json-string">"2023-09-22"</span><br>
+                                &nbsp;&nbsp;&#125;<br>
+                                ]
+                            </ng-container>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-black mb-2">Output Excel:</h4>
+                        <table class="example-table text-sm">
+                            <thead>
+                                <tr>
+                                    <th>productId</th>
+                                    <th>name</th>
+                                    <th>category</th>
+                                    <th>price</th>
+                                    <th>inStock</th>
+                                    <th>lastRestock</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>P-1001</td>
+                                    <td>Wireless Mouse</td>
+                                    <td>Electronics</td>
+                                    <td>29.99</td>
+                                    <td>TRUE</td>
+                                    <td>2023-10-15</td>
+                                </tr>
+                                <tr>
+                                    <td>P-1002</td>
+                                    <td>Mechanical Keyboard</td>
+                                    <td>Electronics</td>
+                                    <td>89.99</td>
+                                    <td>FALSE</td>
+                                    <td>2023-09-22</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            } @else {
+            <div class="grid md:grid-cols-1 gap-8">
+                <div class="bg-white rounded-2xl border border-gray-200 p-6">
+                    <h3 class="text-xl font-semibold text-black mb-4">Employee Data Conversion</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-medium text-black mb-2">Input Excel:</h4>
+                        <table class="example-table text-sm mb-4">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Department</th>
+                                    <th>Salary</th>
+                                    <th>Active</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>101</td>
+                                    <td>Alice Johnson</td>
+                                    <td>Engineering</td>
+                                    <td>75000</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td>102</td>
+                                    <td>Bob Smith</td>
+                                    <td>Marketing</td>
+                                    <td>65000</td>
+                                    <td>FALSE</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-black mb-2">Output JSON:</h4>
+                        <div class="code-block text-sm">
+                            <ng-container>
+                                [<br>
+                                &nbsp;&nbsp;&#123;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"ID"</span>: <span class="json-number">101</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Name"</span>: <span class="json-string">"Alice Johnson"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Department"</span>: <span class="json-string">"Engineering"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Salary"</span>: <span class="json-number">75000</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Active"</span>: <span class="json-boolean">true</span><br>
+                                &nbsp;&nbsp;&#125;,<br>
+                                &nbsp;&nbsp;&#123;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"ID"</span>: <span class="json-number">102</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Name"</span>: <span class="json-string">"Bob Smith"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Department"</span>: <span class="json-string">"Marketing"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Salary"</span>: <span class="json-number">65000</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Active"</span>: <span class="json-boolean">false</span><br>
+                                &nbsp;&nbsp;&#125;<br>
+                                ]
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl border border-gray-200 p-6">
+                    <h3 class="text-xl font-semibold text-black mb-4">Sales Data with Dates</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-medium text-black mb-2">Input Excel:</h4>
+                        <table class="example-table text-sm mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ORD-001</td>
+                                    <td>John Doe</td>
+                                    <td>299.99</td>
+                                    <td>2023-10-15</td>
+                                    <td>Completed</td>
+                                </tr>
+                                <tr>
+                                    <td>ORD-002</td>
+                                    <td>Jane Smith</td>
+                                    <td>149.50</td>
+                                    <td>2023-10-16</td>
+                                    <td>Pending</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-black mb-2">Output JSON:</h4>
+                        <div class="code-block text-sm">
+                            <ng-container>
+                                [<br>
+                                &nbsp;&nbsp;&#123;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Order ID"</span>: <span class="json-string">"ORD-001"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Customer"</span>: <span class="json-string">"John Doe"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Amount"</span>: <span class="json-number">299.99</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Date"</span>: <span class="json-string">"2023-10-15"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Status"</span>: <span class="json-string">"Completed"</span><br>
+                                &nbsp;&nbsp;&#125;,<br>
+                                &nbsp;&nbsp;&#123;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Order ID"</span>: <span class="json-string">"ORD-002"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Customer"</span>: <span class="json-string">"Jane Smith"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Amount"</span>: <span class="json-number">149.50</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Date"</span>: <span class="json-string">"2023-10-16"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"Status"</span>: <span class="json-string">"Pending"</span><br>
+                                &nbsp;&nbsp;&#125;<br>
+                                ]
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-black mb-6">Frequently Asked Questions</h2>
+            
+            @if (activeTab === 'jsonToExcel') {
+            <div class="bg-white rounded-2xl border border-gray-200 p-8">
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">What JSON formats does the tool support?</h3>
+                    <p class="text-gray-700">
+                        Our tool works best with arrays of objects where each object has consistent keys. We support standard JSON data types including strings, numbers, booleans, and null values. Nested objects and arrays may require flattening before conversion.
+                    </p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">Is there a limit to the file size I can convert?</h3>
+                    <p class="text-gray-700">
+                        The tool can handle most typical JSON files. For very large datasets (over 10MB), we recommend splitting your data into smaller chunks or using the CSV format for faster processing. If you encounter performance issues, try simplifying your JSON structure.
+                    </p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">How are nested JSON objects handled?</h3>
+                    <p class="text-gray-700">
+                        Nested objects are automatically flattened with dot notation. For example, <code class="bg-gray-100 px-1 rounded">&#123;"user": &#123;"name": "John", "age": 30&#125;&#125;</code> becomes columns: <code class="bg-gray-100 px-1 rounded">user.name</code> and <code class="bg-gray-100 px-1 rounded">user.age</code>. For complex nesting, we recommend flattening your data first for optimal results.
+                    </p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">Why are some of my dates not formatting correctly in Excel?</h3>
+                    <p class="text-gray-700">
+                        Excel automatically detects date formats. For best results, use ISO date format (YYYY-MM-DD) in your JSON. If dates aren't detected correctly, you can manually format the cells in Excel after conversion.
+                    </p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">Is my data secure when using the tool?</h3>
+                    <p class="text-gray-700">
+                        Yes, all conversions happen entirely in your browser. Your JSON data is never sent to our servers, ensuring complete privacy and security for your sensitive information.
+                    </p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">What should I do if the conversion fails?</h3>
+                    <p class="text-gray-700">
+                        First, check that your JSON is valid using a JSON validator. Ensure all brackets and braces are properly closed and there are no trailing commas. If the issue persists, try simplifying your JSON structure or contact our support team with the error message.
+                    </p>
+                </div>
+            </div>
+            } @else {
+            <div class="bg-white rounded-2xl border border-gray-200 p-8">
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">What Excel formats can I upload?</h3>
+                    <p class="text-gray-700">
+                        Our tool supports .xlsx, .xls, .csv, and .tsv file formats. You can also paste CSV data directly into the tool without uploading a file. For best results, ensure your Excel file has clear column headers in the first row.
+                    </p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">How large can my Excel file be?</h3>
+                    <p class="text-gray-700">
+                        The tool can handle files up to 10MB for optimal performance. For larger datasets, consider splitting your data across multiple files or removing unnecessary columns before conversion. Processing time increases with file size.
+                    </p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">What happens to Excel formulas and formatting?</h3>
+                    <p class="text-gray-700">
+                        The tool converts the calculated values of formulas, not the formulas themselves. Cell formatting (colors, fonts, etc.) is not preserved in JSON output. Only the raw data values are converted to maintain clean JSON structure.
+                    </p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">How are Excel data types converted to JSON?</h3>
+                    <p class="text-gray-700">
+                        Numbers remain as JSON numbers, text becomes strings, TRUE/FALSE becomes boolean values, and dates are converted to ISO string format. Empty cells can be included as null values or excluded entirely based on your settings.
+                    </p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">Can I convert multiple Excel sheets at once?</h3>
+                    <p class="text-gray-700">
+                        Currently, you can convert one sheet at a time. For multi-sheet Excel files, you'll be able to select which sheet to convert. We're working on adding bulk sheet conversion in a future update.
+                    </p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">What if my Excel has merged cells or complex layouts?</h3>
+                    <p class="text-gray-700">
+                        Merged cells and complex layouts may not convert properly. For best results, ensure your data is in a simple table format with headers in the first row and data in subsequent rows without merged cells or gaps.
+                    </p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="text-xl font-semibold text-black mb-3">Is my Excel data secure during conversion?</h3>
+                    <p class="text-gray-700">
+                        Yes, all processing happens locally in your browser. Your Excel files are never uploaded to our servers, ensuring complete privacy and security for your sensitive business data.
+                    </p>
+                </div>
+            </div>
+            }
+        </section>
+
+        <!-- Quick Tips Section -->
+        <section class="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+            <h2 class="text-2xl font-bold text-black mb-6">Quick Tips for Best Results</h2>
+            
+            @if (activeTab === 'jsonToExcel') {
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <h3 class="font-semibold text-black mb-2">JSON Preparation</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• Use consistent property names across all objects</li>
+                        <li>• Flatten nested structures before conversion</li>
+                        <li>• Validate JSON syntax before pasting</li>
+                        <li>• Use arrays of objects, not single objects</li>
+                        <li>• Remove unnecessary metadata wrapper objects</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <h3 class="font-semibold text-black mb-2">Tool Usage</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• Use preview to verify data before downloading</li>
+                        <li>• Choose Excel format for better data type preservation</li>
+                        <li>• Use CSV for faster processing of large datasets</li>
+                        <li>• Bookmark the tool for quick access</li>
+                        <li>• Check console for errors if conversion fails</li>
+                    </ul>
+                </div>
+            </div>
+            } @else {
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <h3 class="font-semibold text-black mb-2">Excel Preparation</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• Ensure first row contains clear column headers</li>
+                        <li>• Remove merged cells and complex formatting</li>
+                        <li>• Use consistent data types in each column</li>
+                        <li>• Remove empty rows between data</li>
+                        <li>• Keep data in simple table format</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <h3 class="font-semibold text-black mb-2">Conversion Tips</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• Preview JSON output before downloading</li>
+                        <li>• Choose appropriate JSON structure format</li>
+                        <li>• Verify data types are converted correctly</li>
+                        <li>• Use meaningful column headers for JSON keys</li>
+                        <li>• Test with small files first for large datasets</li>
+                    </ul>
+                </div>
+            </div>
+            }
+        </section>
+    </div>
+</div>

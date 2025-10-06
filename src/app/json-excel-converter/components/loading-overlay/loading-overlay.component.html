@@ -1,0 +1,17 @@
+<div class="loading-overlay">
+  <div class="loading-popup">
+    <div class="loading-icon-container">
+      <div class="loading-spinner"></div>
+    </div>
+    <div class="loading-content">
+      <h3 class="loading-title">Processing</h3>
+      <p class="loading-message">{{ progressMessage }}</p>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="progressPercent"></div>
+        </div>
+        <span class="progress-text">{{ progressPercent | number:'1.0-0' }}%</span>
+      </div>
+    </div>
+  </div>
+</div>

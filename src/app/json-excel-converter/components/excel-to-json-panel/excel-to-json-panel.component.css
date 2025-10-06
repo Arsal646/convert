@@ -1,0 +1,40 @@
+:host {
+  display: block;
+  font-size: 0.95rem;
+}
+
+:host button {
+  font-size: 0.9rem;
+}
+
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:disabled,
+button[disabled] {
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.5);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.upload-zone {
+  transition: all 0.3s ease;
+}

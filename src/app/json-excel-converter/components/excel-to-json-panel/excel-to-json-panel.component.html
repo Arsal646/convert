@@ -1,0 +1,133 @@
+@if (isProcessing) {
+  <app-loading-overlay [progressMessage]="progressMessage" [progressPercent]="progressPercent"></app-loading-overlay>
+}
+
+@if (!showJsonOutput) {
+  <div class="space-y-6">
+    <div class="bg-gray-50 border-2 border-gray-200 rounded-lg p-6">
+      <div class="flex items-center justify-between mb-3">
+        <label class="block text-sm font-semibold text-black">Upload Excel File</label>
+        <button (click)="openGuideModal()"
+          class="bg-gray-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Guide
+        </button>
+      </div>
+
+      @if (!fileUploaded) {
+      <div (click)="triggerFileBrowse()"
+        (dragover)="handleDragOver($event)"
+        (dragleave)="handleDragLeave($event)"
+        (drop)="handleDrop($event)"
+        [ngClass]="isDragOver ? 'upload-zone border-3 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all border-black bg-gray-100' : 'upload-zone border-3 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all border-gray-300 hover:border-gray-500 hover:bg-gray-50'">
+        <svg class="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+        </svg>
+        <p class="text-gray-600 font-medium mb-2">Drop your Excel file here or click to browse</p>
+        <p class="text-sm text-gray-500">Supports .xlsx, .xls files</p>
+        <input #fileInput type="file" accept=".xlsx,.xls" class="hidden" (change)="handleFileInput($event)">
+      </div>
+      } @else {
+      <div class="bg-white border-2 border-green-200 rounded-lg p-8 text-center">
+        <svg class="mx-auto h-16 w-16 text-green-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3 class="text-lg font-semibold text-black mb-2">File Ready for Conversion</h3>
+        <p class="text-gray-600 mb-1">{{ fileName }}</p>
+        <p class="text-sm text-gray-500 mb-6">Excel file uploaded successfully</p>
+
+        <div class="flex justify-center gap-3">
+          <button (click)="convertToJson()" [disabled]="isProcessing"
+            class="btn-primary bg-black text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+            </svg>
+            Convert to JSON
+          </button>
+          <button (click)="backToUpload()"
+            class="bg-gray-200 text-gray-700 px-6 py-4 rounded-lg font-medium hover:bg-gray-300">
+            Choose Different File
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+}
+
+@if (showJsonOutput) {
+  <div class="space-y-6">
+    <div class="bg-white border border-gray-200 rounded-lg p-6 relative overflow-hidden">
+      <div class="bg-green-50 border border-blue-200 rounded-lg p-4 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="flex-shrink-0">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-green-800">Your Excel has been converted to JSON</h3>
+            <p class="text-xs text-blue-700 mt-1">{{ fileName }} &bull; {{ recordCount }} records converted</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <button (click)="backToUpload()"
+          class="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-black transition-colors text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back to Upload
+        </button>
+
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <button (click)="downloadJson()" [disabled]="recordCount === 0"
+            class="bg-black text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Download JSON
+          </button>
+          <button (click)="copyToClipboard()" [disabled]="!jsonOutput"
+            class="bg-gray-200 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+            </svg>
+            Copy
+          </button>
+          <button (click)="newUpload()"
+            class="bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 flex items-center justify-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+            </svg>
+            New
+          </button>
+        </div>
+      </div>
+
+      @if (showFireworks) {
+      <div class="fireworks-container">
+        <div class="firework firework-1"></div>
+        <div class="firework firework-2"></div>
+        <div class="firework firework-3"></div>
+      </div>
+      }
+    </div>
+
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+      <app-monaco-editor [value]="jsonOutput" language="json" [readOnly]="true" height="24rem"></app-monaco-editor>
+    </div>
+  </div>
+}
+
+<app-toast-container [toasts]="toasts" (dismiss)="dismissToast($event)"></app-toast-container>
+

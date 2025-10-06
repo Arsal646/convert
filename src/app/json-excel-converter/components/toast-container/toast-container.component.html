@@ -1,0 +1,30 @@
+@if (toasts.length) {
+  <div class="toast-container">
+    @for (toast of toasts; track toast.id) {
+    <div
+      [ngClass]="'toast ' + (toast.type === 'success' ? 'toast-success' : 'toast-error') + ' ' + (toast.isVisible ? 'toast-visible' : 'toast-hidden')"
+      (click)="onDismiss(toast.id)">
+      <div class="toast-content">
+        <div class="toast-icon">
+          @if (toast.type === 'success') {
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          } @else {
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+          }
+        </div>
+        <span class="toast-message">{{ toast.message }}</span>
+        <button class="toast-close" (click)="$event.stopPropagation(); onDismiss(toast.id)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+}
+

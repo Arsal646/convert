@@ -1,0 +1,239 @@
+/* Modal animations */
+.modal-backdrop {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  backdrop-filter: blur(2px);
+}
+
+.modal-backdrop.animate-in {
+  opacity: 1;
+}
+
+.modal-backdrop.animate-out {
+  opacity: 0;
+}
+
+.modal-content {
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.modal-content.animate-in {
+  transform: translateY(0);
+}
+
+.modal-content.animate-out {
+  transform: translateY(100%);
+}
+
+/* Enhanced smooth animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(100%);
+    opacity: 0.8;
+  }
+}
+
+.modal-content.slide-up {
+  animation: slideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  will-change: transform, opacity;
+}
+
+.modal-content.slide-down {
+  animation: slideDown 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+  will-change: transform, opacity;
+}
+
+/* Custom scrollbar for modal content */
+.modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.modal-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Ensure modal content is properly contained */
+.modal-content {
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+/* Guide step styling */
+.guide-step {
+  width: 2rem;
+  height: 2rem;
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+/* Code block styling */
+.code-block {
+  background-color: #111827;
+  color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  overflow-x: auto;
+}
+
+.json-key {
+  color: #60a5fa;
+}
+
+.json-string {
+  color: #34d399;
+}
+
+.json-number {
+  color: #fbbf24;
+}
+
+.json-boolean {
+  color: #f87171;
+}
+
+/* Table styling */
+.example-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.example-table th,
+.example-table td {
+  border: 1px solid #d1d5db;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.example-table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+
+/* FAQ item spacing */
+.faq-item {
+  margin-bottom: 1.5rem;
+}
+
+.faq-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Mo
+dal container improvements */
+.modal-container {
+  pointer-events: auto;
+}
+
+.modal-backdrop {
+  pointer-events: auto;
+}
+
+/* Ensure smooth backdrop transition */
+.modal-backdrop {
+  background: transparent;
+}
+
+/* Close button hover effect */
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.05);
+}
+
+.close-button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Prevent content shift during animation */
+.modal-content {
+  backface-visibility: hidden;
+  perspective: 1000px;
+}/* Moda
+l visibility control */
+.modal-backdrop:not(.animate-in):not(.animate-out) {
+  display: none;
+}
+
+/* SEO Content - Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Guide content visibility */
+.json-to-excel-guide.hidden,
+.excel-to-json-guide.hidden {
+  display: none;
+}
+
+/* SEO content styling */
+.seo-content h1,
+.seo-content h2,
+.seo-content h3 {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.seo-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.seo-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.seo-content li {
+  margin-bottom: 0.25rem;
+}

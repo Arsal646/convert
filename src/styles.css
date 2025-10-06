@@ -9,7 +9,7 @@ body {
 
 @media (min-width: 640px) {
   .monaco-wrapper {
-    height: 300px;
+    height: 230px;
   }
 
 }
