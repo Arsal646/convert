@@ -1,11 +1,11 @@
 @if (isProcessing) {
-  <app-loading-overlay [progressMessage]="progressMessage" [progressPercent]="progressPercent"></app-loading-overlay>
+<app-loading-overlay [progressMessage]="progressMessage" [progressPercent]="progressPercent"></app-loading-overlay>
 }
 
 <div class="space-y-6">
 
   @if(!showPreview) {
-      <div class="bg-gray-50 border-2 border-gray-200 rounded-lg p-6">
+  <div class="bg-gray-50 border-2 border-gray-200 rounded-lg p-6">
     <div class="flex items-start justify-between mb-3">
       <div>
         <label class="block text-sm font-semibold text-black">Input JSON</label>
@@ -15,21 +15,23 @@
         <button (click)="openGuideModal()"
           class="bg-gray-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 flex items-center gap-2">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+            </path>
           </svg>
           Guide
         </button>
+   
+
         <button (click)="loadSampleData()"
-          class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700">
+          class="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 flex items-center gap-2">
+         
           Sample
         </button>
       </div>
     </div>
-    <app-monaco-editor [value]="jsonInput"
-      (valueChange)="onJsonEditorChange($event)"
-      language="json"
-      [placeholder]="placeholderJson"
-      height="22rem"></app-monaco-editor>
+    <app-monaco-editor [value]="jsonInput" (valueChange)="onJsonEditorChange($event)" language="json"
+      [placeholder]="placeholderJson" height="22rem"></app-monaco-editor>
 
     <div class="mt-4 flex flex-wrap gap-3">
       <button (click)="previewExcel()" [disabled]="isProcessing"
@@ -51,12 +53,14 @@
         <div class="flex items-center gap-3">
           <div class="flex-shrink-0">
             <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>
           <div>
             <h3 class="text-sm font-semibold text-green-800"> Your JSON has been converted to Excel</h3>
-            <p class="text-xs text-green-700 mt-1">{{ previewTableRows.length }} rows &bull; {{ previewTableHeaders.length }} columns ready for download</p>
+            <p class="text-xs text-green-700 mt-1">{{ previewTableRows.length }} rows &bull; {{
+              previewTableHeaders.length }} columns ready for download</p>
           </div>
         </div>
       </div>
@@ -75,14 +79,16 @@
             class="bg-green-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-green-700 flex items-center justify-center gap-2 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+              </path>
             </svg>
             Download Excel
           </button>
           <button (click)="downloadCsv()"
             class="bg-gray-200 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-300 flex items-center justify-center gap-2 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16v4H4zm0 6h16v10H4z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16v4H4zm0 6h16v10H4z">
+              </path>
             </svg>
             Download CSV
           </button>

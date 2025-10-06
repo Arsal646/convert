@@ -7,9 +7,14 @@ body {
   min-height: 100vh;
 }
 
-@media (min-width: 640px) {
+
   .monaco-wrapper {
     height: 230px;
   }
 
-}
+  a, button {
+    cursor: pointer;
+  }
+
+
+

@@ -34,13 +34,13 @@
   opacity: 0;
 }
 
-.toast-success {
+/* .toast-success {
   border-left: 4px solid #000;
-}
+} */
 
-.toast-error {
+/* .toast-error {
   border-left: 4px solid #6b7280;
-}
+} */
 
 .toast-content {
   display: flex;
