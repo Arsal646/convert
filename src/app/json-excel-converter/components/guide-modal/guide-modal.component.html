@@ -4,7 +4,7 @@
   <div class="fixed inset-0  bg-opacity-30"></div>
 
   <!-- Modal Content -->
-  <div class="relative w-full max-w-6xl h-[80vh] bg-white rounded-t-2xl shadow-2xl flex flex-col"
+  <div class="relative w-full max-w-6xl h-[80vh] bg-white rounded-t-2xl shadow-2xl flex flex-col overflow-hidden"
     [class]="contentClasses">
     <!-- Modal Header -->
     <div class="flex-shrink-0 bg-white border-b border-gray-200 px-6 py-4 rounded-t-2xl">
@@ -26,7 +26,7 @@
     </div>
 
     <!-- Modal Body -->
-    <div class="flex-1 overflow-y-auto px-6 py-6 modal-scroll">
+    <div class="flex-1 overflow-y-auto overflow-x-hidden px-6 py-6 modal-scroll">
 
 
 
@@ -309,33 +309,35 @@
 
                 <div>
                   <h4 class="font-medium text-black mb-2">Output Excel:</h4>
-                  <table class="example-table text-sm">
-                    <thead>
-                      <tr>
-                        <th>id</th>
-                        <th>firstName</th>
-                        <th>lastName</th>
-                        <th>email</th>
-                        <th>department</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>101</td>
-                        <td>Alice</td>
-                        <td>Johnson</td>
-                        <td>alice&#64;example.com</td>
-                        <td>Engineering</td>
-                      </tr>
-                      <tr>
-                        <td>102</td>
-                        <td>Bob</td>
-                        <td>Smith</td>
-                        <td>bob&#64;example.com</td>
-                        <td>Marketing</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div class="table-container">
+                    <table class="example-table text-sm">
+                      <thead>
+                        <tr>
+                          <th>id</th>
+                          <th>firstName</th>
+                          <th>lastName</th>
+                          <th>email</th>
+                          <th>department</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>101</td>
+                          <td>Alice</td>
+                          <td>Johnson</td>
+                          <td>alice&#64;example.com</td>
+                          <td>Engineering</td>
+                        </tr>
+                        <tr>
+                          <td>102</td>
+                          <td>Bob</td>
+                          <td>Smith</td>
+                          <td>bob&#64;example.com</td>
+                          <td>Marketing</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
 
@@ -382,36 +384,38 @@
 
                 <div>
                   <h4 class="font-medium text-black mb-2">Output Excel:</h4>
-                  <table class="example-table text-sm">
-                    <thead>
-                      <tr>
-                        <th>productId</th>
-                        <th>name</th>
-                        <th>category</th>
-                        <th>price</th>
-                        <th>inStock</th>
-                        <th>lastRestock</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>P-1001</td>
-                        <td>Wireless Mouse</td>
-                        <td>Electronics</td>
-                        <td>29.99</td>
-                        <td>TRUE</td>
-                        <td>2023-10-15</td>
-                      </tr>
-                      <tr>
-                        <td>P-1002</td>
-                        <td>Mechanical Keyboard</td>
-                        <td>Electronics</td>
-                        <td>89.99</td>
-                        <td>FALSE</td>
-                        <td>2023-09-22</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div class="table-container">
+                    <table class="example-table text-sm">
+                      <thead>
+                        <tr>
+                          <th>productId</th>
+                          <th>name</th>
+                          <th>category</th>
+                          <th>price</th>
+                          <th>inStock</th>
+                          <th>lastRestock</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>P-1001</td>
+                          <td>Wireless Mouse</td>
+                          <td>Electronics</td>
+                          <td>29.99</td>
+                          <td>TRUE</td>
+                          <td>2023-10-15</td>
+                        </tr>
+                        <tr>
+                          <td>P-1002</td>
+                          <td>Mechanical Keyboard</td>
+                          <td>Electronics</td>
+                          <td>89.99</td>
+                          <td>FALSE</td>
+                          <td>2023-09-22</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
